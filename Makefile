@@ -17,7 +17,7 @@ OBJS_WITHOUT_MAIN = $(filter-out $(OBJ_MAIN), $(OBJS))
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP #-fvisibility=hidden
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Ddylib_f=on#-fvisibility=hidden
 CXXFLAGS = -std=c++11
 
 $(info all of the objs are $(OBJS))
