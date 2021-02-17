@@ -1,20 +1,32 @@
 #include <cstdio>
 #include <vector>
 #include <iostream>
+
 #include "mytrans.h"
 #include "tokenizer.h"
+#include "treenode.h"
 
 using std::string;
 using std::cout;
 using std::endl;
 
 void show_ref(string&& s) {
-  cout << "rvalue ref" << endl;
+  cout << "rvalue ref passed in(" << s << ")" << endl;
 }
 
 void show_ref(string& s) {
-  cout << "ref" << endl;
+  cout << "lvalue ref passed in(" << s << ")" << endl;
 }
+
+void fwd(string&& s) {
+  cout << "#using forward" << endl;
+  show_ref(std::forward<string>(s));
+  cout << "#plain forward call" << endl;
+  show_ref(s);
+}
+
+typedef struct _TestHandle {
+} TestHandle;
 
 // export as c symbol
 extern "C" {
@@ -27,23 +39,34 @@ extern "C" {
     std::vector<int> states = { 1, 2, 3, 4 };
     printf("how many items: %lu\n", states.size());
 
-    std::string bob = "bob";
-    std::vector<std::string> people;
+    string apple{"apple"};
+    string& apple_ref = apple;
+    //show_ref(std::move(apple_ref));
+    //show_ref("apple");
 
-    people.push_back(bob);
+    fwd(std::move(apple_ref));
 
-    std::cout << &bob << ":" << &people[0] << std::endl;
+    cout << "TestHandle* size " << sizeof(TestHandle*) << endl;
+    cout << "string* size " << sizeof(string*) << endl;
+    cout << "char* size " << sizeof(char* ) << endl;
 
-    string&& s = "aaa";
-    show_ref(s);
+    cout << "wchar_t size: " << sizeof(wchar_t) << endl;
+    char* hw = "huangwei";
+    cout << "name size: " << sizeof(hw) << endl;
 
-    show_ref("hello");
+    // testing treenode
+    string *tree_node_data = new string("flurry");
+    TreeNode treeNodeRoot(std::move(tree_node_data));
+    cout << ":::tree node root " << *(treeNodeRoot.getData())<< endl;
 
-    string jack{"jack"};
-    string& jack2 = jack;
-    string&& jack1 = std::move(jack2);
-    show_ref(jack1);
-    cout << "jack is " << jack << endl;
+    std::vector<string*> names {
+      new string("cindy"),
+      new string("amy"),
+      new string("dinder"),
+      new string("pop"),
+      new string("ok"),
+      new string("quit"),
+    };
 
     return "hello world";
   }
