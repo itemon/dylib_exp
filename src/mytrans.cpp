@@ -5,6 +5,7 @@
 #include "mytrans.h"
 #include "tokenizer.h"
 #include "treenode.h"
+#include "tree.h"
 
 using std::string;
 using std::cout;
