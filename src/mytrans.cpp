@@ -69,6 +69,12 @@ extern "C" {
       new string("quit"),
     };
 
+    for (std::vector<string*>::iterator i = names.begin(); i != names.end(); ++i) {
+      cout << (*i)->size() << endl;
+      TreeNode item(*i);
+      add_treenode(&treeNodeRoot, &item);
+    }
+
     return "hello world";
   }
 }
