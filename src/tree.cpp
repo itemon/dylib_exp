@@ -1,3 +1,4 @@
+#include <iostream>
 #include "tree.h"
 
 void add_treenode(TreeNode* node, TreeNode* data) {
@@ -9,7 +10,7 @@ void add_treenode(TreeNode* node, TreeNode* data) {
   int result = node->getData()->compare(*d);
   if (result == 0){
     return;
-  } else if (result < 0) {
+  } else if (result > 0) {
     if (node->left == nullptr) {
       node->left = data;
     } else {
@@ -21,5 +22,16 @@ void add_treenode(TreeNode* node, TreeNode* data) {
     } else {
       add_treenode(node->right, data);
     }
+  }
+}
+
+void loop_tree(TreeNode* treenode) {
+  const std::string* data = treenode->getData();
+  std::cout << "loop data " << *data << std::endl;
+  if (treenode->left) {
+    loop_tree(treenode->left);
+  }
+  if (treenode->right) {
+    loop_tree(treenode->right);
   }
 }

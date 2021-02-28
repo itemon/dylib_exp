@@ -10,8 +10,8 @@ TreeNode::TreeNode(std::string&& d) {
 }
 
 TreeNode::~TreeNode() {
-  std::cout << "delete treenode data " << (*data) << std::endl;
-  delete data;
+  std::cout << "delete treenode " << (*data) << std::endl;
+  //delete data;
 }
 
 std::string* TreeNode::getData() const {

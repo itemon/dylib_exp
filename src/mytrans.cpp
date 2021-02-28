@@ -56,24 +56,31 @@ extern "C" {
     cout << "name size: " << sizeof(hw) << endl;
 
     // testing treenode
-    string *tree_node_data = new string("flurry");
-    TreeNode treeNodeRoot(std::move(tree_node_data));
+    string flurry{ "flurry" };
+    TreeNode treeNodeRoot(&flurry);
     cout << ":::tree node root " << *(treeNodeRoot.getData())<< endl;
 
-    std::vector<string*> names {
-      new string("cindy"),
-      new string("amy"),
-      new string("dinder"),
-      new string("pop"),
-      new string("ok"),
-      new string("quit"),
-    };
+    string hello{ "hello" };
+    string world{ "world" };
+    string doodle { "doodle" };
+    string edward{ "edward" };
+    string amy{ "amy" };
 
-    for (std::vector<string*>::iterator i = names.begin(); i != names.end(); ++i) {
-      cout << (*i)->size() << endl;
-      TreeNode item(*i);
-      add_treenode(&treeNodeRoot, &item);
-    }
+    TreeNode node_hello { &hello };
+    TreeNode node_world { &world };
+    TreeNode node_doodle { &doodle };
+    TreeNode node_edward { &edward };
+    TreeNode node_amy { &amy };
+
+    add_treenode(&treeNodeRoot, &node_hello);
+    add_treenode(&treeNodeRoot, &node_world);
+    add_treenode(&treeNodeRoot, &node_doodle);
+    add_treenode(&treeNodeRoot, &node_edward);
+    add_treenode(&treeNodeRoot, &node_amy);
+
+    cout << "before loop down all tree node" << endl;
+    loop_tree(&treeNodeRoot);
+    cout << "root left " << *(treeNodeRoot.left->getData()) << endl;
 
     return "hello world";
   }
