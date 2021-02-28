@@ -80,6 +80,8 @@ extern "C" {
 
     cout << "before loop down all tree node" << endl;
     loop_tree(&treeNodeRoot);
+    cout << "preorder loop" << endl;
+    preorder_loop_tree(&treeNodeRoot);
     cout << "root left " << *(treeNodeRoot.left->getData()) << endl;
 
     return "hello world";
