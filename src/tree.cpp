@@ -42,10 +42,6 @@ void loop_tree(TreeNode* treenode) {
  * without using recursive algorithm
  */
 void preorder_loop_tree(TreeNode* root) {
-  /*
-  const std::string* data = root->getData();
-  std::cout << "[preorder]loop data " << *data << std::endl;
-  */
   using TreeStack = std::stack<TreeNode*>;
 
   TreeStack tree_cache;

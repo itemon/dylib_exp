@@ -6,6 +6,7 @@
 #include "tokenizer.h"
 #include "treenode.h"
 #include "tree.h"
+#include "algo.h"
 
 using std::string;
 using std::cout;
@@ -32,6 +33,7 @@ typedef struct _TestHandle {
 // export as c symbol
 extern "C" {
   const char* mytrans_proceed(const char* lang) {
+    /*
     std::string uniname("hello world");
     Tokenizer t(&uniname);
 
@@ -50,6 +52,7 @@ extern "C" {
     cout << "TestHandle* size " << sizeof(TestHandle*) << endl;
     cout << "string* size " << sizeof(string*) << endl;
     cout << "char* size " << sizeof(char* ) << endl;
+    cout << "unsigned long size " << sizeof(unsigned long) << endl;
 
     cout << "wchar_t size: " << sizeof(wchar_t) << endl;
     char* hw = "huangwei";
@@ -83,6 +86,10 @@ extern "C" {
     cout << "preorder loop" << endl;
     preorder_loop_tree(&treeNodeRoot);
     cout << "root left " << *(treeNodeRoot.left->getData()) << endl;
+    */
+
+    std::string google { "google" };
+    findLongestNonOverlappingStr(&google);
 
     return "hello world";
   }
