@@ -89,7 +89,9 @@ extern "C" {
     */
 
     std::string google { "google" };
-    findLongestNonOverlappingStr(&google);
+    //findLongestNonOverlappingStr(&google);
+
+    test_sleeping();
 
     return "hello world";
   }
