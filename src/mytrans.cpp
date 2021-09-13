@@ -7,6 +7,7 @@
 #include "treenode.h"
 #include "tree.h"
 #include "algo.h"
+#include "site_content_handle.h"
 
 using std::string;
 using std::cout;
@@ -33,7 +34,20 @@ typedef struct _TestHandle {
 // export as c symbol
 extern "C" {
   const char* mytrans_proceed(const char* lang) {
+
+    site::site_content_handler handler{ "http://127.0.0.1/site/36kr/list" };
+    const std::string * const parsed_content_of_url = handler.content();
+    //*parsed_content_of_url = "this is the final urlthis is the final urlthis is the final url";
+    std::cout << "url is " << *parsed_content_of_url << std::endl;
+
     /*
+    char test[5] {
+      'a', 'b', 'c', 'd', 'e',
+    };
+    const char * const test_ptr = (const char * const)test;
+    test_ptr[0] = 'f';
+    std::cout << test << std::endl;
+
     std::string uniname("hello world");
     Tokenizer t(&uniname);
 
@@ -88,10 +102,11 @@ extern "C" {
     cout << "root left " << *(treeNodeRoot.left->getData()) << endl;
     */
 
-    std::string google { "google" };
+    //std::string google { "google" };
     //findLongestNonOverlappingStr(&google);
 
-    test_sleeping();
+    //test_sleeping();
+    //test_concurrency();
 
     return "hello world";
   }

@@ -8,4 +8,6 @@ void findLongestNonOverlappingStr(std::string *input);
 
 void test_sleeping();
 
+void test_concurrency();
+
 #endif

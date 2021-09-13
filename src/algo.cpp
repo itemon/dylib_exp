@@ -51,8 +51,8 @@ void findLongestNonOverlappingStr(std::string *input) {
   std::cout << std::asctime(std::localtime(T)) << std::endl;
 
 void sleep_callback() {
-  std::this_thread::sleep_for(std::chrono::seconds(5));
   std::cout << "thread callback time:";
+  std::this_thread::sleep_for(std::chrono::seconds(5));
   time_t thread_callback_time = time(NULL);
   LOG_T(&thread_callback_time)
 }
@@ -68,4 +68,17 @@ void test_sleeping() {
   time_t after_thread_startup = time(NULL);
   std::cout << "after thread startup:";
   LOG_T(&after_thread_startup)
+}
+
+struct Vehicle {
+  void operator() (double gas) {
+    std::cout << "this vehicle can run with gas " << gas << std::endl;
+  }
+};
+
+void test_concurrency() {
+  std::cout << "CPU core count is " << std::thread::hardware_concurrency() << std::endl;
+  struct Vehicle v;
+  v(10.0f);
+  std::cout << "the thread of this is " << std::this_thread::get_id() << std::endl;
 }
