@@ -4,6 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <string>
+#include <future>
 
 void findLongestNonOverlappingStr(std::string *input) {
   std::cout << "start find non overlapping sub str " << input->size() << std::endl;
@@ -83,6 +84,7 @@ void test_concurrency() {
   struct Vehicle v;
   v(10.0f);
   std::cout << "the thread of this is " << std::this_thread::get_id() << std::endl;
+}
 
 std::mutex mutx;
 
@@ -95,10 +97,25 @@ void thread_runner(std::string name) {
   mutx.unlock();
 }
 
+void add_it(int a, int b, std::promise<int> pro) {
+  std::cout << "about to set value of pro to " << (a + b) << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+  pro.set_value(a + 10);
+}
+
 void test_mutex() {
+  /*
   std::thread t1(thread_runner, "master");
   std::thread t2(thread_runner, "worker");
 
   t1.join();
   t2.join();
+  */
+
+  std::promise<int> pro;
+  std::future<int> pro_future = pro.get_future();
+  std::cout << "pro value is " << pro_future.get() << std::endl;
+
+  std::thread pro_thread(add_it, 1, 10, std::move(pro));
+  pro_thread.join();
 }

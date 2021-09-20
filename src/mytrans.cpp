@@ -108,6 +108,8 @@ extern "C" {
     //test_sleeping();
     //test_concurrency();
 
+    test_mutex();
+
     return "hello world";
   }
 }
