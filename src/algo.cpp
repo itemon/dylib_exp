@@ -5,6 +5,7 @@
 #include <mutex>
 #include <string>
 #include <future>
+#include <fstream>
 
 void findLongestNonOverlappingStr(std::string *input) {
   std::cout << "start find non overlapping sub str " << input->size() << std::endl;
@@ -103,7 +104,11 @@ void add_it(int a, int b, std::promise<int> pro) {
   pro.set_value(a + 10);
 }
 
+typedef std::chrono::duration<int, std::ratio<15, 1>> one_quanter;
+
 void test_mutex() {
+  one_quanter three_qu(3);
+  std::cout << "3 quanter is " << three_qu.count() << std::endl;
   /*
   std::thread t1(thread_runner, "master");
   std::thread t2(thread_runner, "worker");
@@ -114,8 +119,21 @@ void test_mutex() {
 
   std::promise<int> pro;
   std::future<int> pro_future = pro.get_future();
-  std::cout << "pro value is " << pro_future.get() << std::endl;
 
   std::thread pro_thread(add_it, 1, 10, std::move(pro));
   pro_thread.join();
+
+  std::cout << "pro value is " << pro_future.get() << std::endl;
+
+  std::future<bool> has_file = std::async(std::launch::async, [=](){
+    std::ifstream corps("../if.txt", std::ios::in);
+    return corps.is_open();
+  });
+
+  auto start = std::chrono::high_resolution_clock::now();
+  std::cout << "has if.txt file " << has_file.get() << std::endl;
+  auto end = std::chrono::high_resolution_clock::now();
+
+  std::chrono::duration<double> span_time = end - start;
+  std::cout << "call async cost " << std::chrono::duration_cast<std::chrono::nanoseconds>(span_time).count() << "ns" << std::endl;
 }
